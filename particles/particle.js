@@ -1,18 +1,18 @@
-function Particle(x, y, radius, dx, dy, color) {
+function Particle(x, y, radius, color) {
     this.x = x;
     this.y = y;
     this.radius = radius;
-    this.mass = 1;
+    this.mass = mass;
     this.color = color;
     this.velocity = {
-        x: (Math.random() - 0.5) * 5,
-        y: (Math.random() - 0.5) * 5
+        x: (Math.random() - 0.5) * v,
+        y: (Math.random() - 0.5) * v
     };
 
     this.draw = function() {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        c.globalAlpha = 0.2;
+        c.globalAlpha = 0.5;
         c.fillStyle = this.color;
         c.fill();
         c.stroke();
@@ -33,8 +33,8 @@ function Particle(x, y, radius, dx, dy, color) {
             }
         }
 
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.x += this.velocity.x * friction;
+        this.y += this.velocity.y * friction;
         this.draw();
     }
 }

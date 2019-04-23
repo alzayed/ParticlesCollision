@@ -6,14 +6,14 @@ var gravity = 1;
 var x;
 var y;
 var color;
-let dx = randomRange(-7,7);
-let dy = randomRange(-7,7);
 var frame;
-var radius = 10;
-var numberOfBalls = 100;
+var radius = 5;
+var numberOfBalls = 300;
 var thereIsOverLapp = false;
-var friction = 0.995;
+var friction = 1;
 var hitFriction = 0.90;
+var v = 30;
+var mass = 10;
 
 var mouse = {
     x: canv.width/2,
@@ -30,11 +30,10 @@ function animate() {
 
 function getUniqueDistance(particles) {
     randomizeIt();
-    var goodDistance = true;
-    var tempParticle = new Particle(x, y, radius, dx, dy, color);
+    var tempParticle = new Particle(x, y, radius, color);
     while(isTouchEdge(tempParticle)) {
         randomizeIt();
-        tempParticle = new Particle(x, y,radius, dy, dx, color);
+        tempParticle = new Particle(x, y,radius, color);
     }
     for (let i = 0; i < particles.length; i++) {
         if(isTwoParticlesHit(tempParticle, particles[i])) {
@@ -47,6 +46,10 @@ function getUniqueDistance(particles) {
 function init() {
     resizeCanvas();
     cancelAnimationFrame(frame);
+    randomizeIt();
+    
+    particles.push(new Particle(canv.width/2, canv.height/2, 10, 'red'));
+
     for (let i = 0; i < numberOfBalls; i++) {
         randomizeIt();
         var tempParticle = getUniqueDistance(particles);
